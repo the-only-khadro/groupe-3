@@ -2,6 +2,8 @@
 #include <string.h>
 //fonction somme
 
-//fonction produit
-
+//fonction produit pour boubacar
+float multiplier(float a,float b){
+    return a*b
+}
 //fonction souostraction
