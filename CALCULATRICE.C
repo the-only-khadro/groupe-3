@@ -5,7 +5,7 @@ int somme (int a, int b){
     return a+b
 }
 
-//fonction produit pour boubacar
+//fonction produit pour boubacar 
 float multiplier(float a,float b){
     return a*b
 }
