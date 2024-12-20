@@ -2,7 +2,7 @@
 #include <string.h>
 //fonction somme
 
-//fonction produit pour boubacar
+//fonction produit pour boubacar 
 float multiplier(float a,float b){
     return a*b
 }
