@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include<stdlib.h>
 #include <string.h>
 //fonction somme pour khadro
 int somme (int a, int b){
@@ -14,12 +15,13 @@ float soustraction(float a,float b){
     return a-b
 }
 // methode main pour khadro,boobs,penda
-int main(int a,int b)
+int main()
 {
     a=2;
     b=3;
  int somme (a,b) ;
  float multiplier (a,b) ;
  float soustraction (a,b) ;
+ return 0
 
 }
