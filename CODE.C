@@ -62,11 +62,21 @@ void ajout_compte(int numero_compte, struct date date, int solde, int codecl){
     t->date = date;
     t->solde = solde;
     t->codecl = codecl;
+    FILE* fptr;
+    fptr = fopen("comptes.txt", "a");
+    if(fptr != NULL) {
+        fprintf(fptr, "Nom: %s\n", t->numero_compte);
+        fprintf(fptr, "date: %s\n", t->date.jour);
+        fprintf(fptr, "solde: %s\n", t->solde);
+        fprintf(fptr, "codecl: %s\n", t->codecl);
+        fclose(fptr);
+
 }
 
 void ajout_client(int codecl, char prenom[5], char nom[5], char tel[5], char ville[5] ){
     struct client * m[1];
     m[1]= (struct client *)malloc(50 * sizeof(struct client));
+    
     m[0]->codecl = codecl;
     strcpy(m[0]->prenom, prenom);
     strcpy(m[0]->nom, nom);
@@ -164,15 +174,7 @@ int main() {
         prendre_inf();
     }
     struct compte c1;
-    FILE* fptr;
-    fptr = fopen("comptes.txt", "a");
-    if(fptr != NULL) {
-        fprintf(fptr, "Nom: %s\n", c1.nom);
-        fprintf(fptr, "Prenom: %s\n", c1.prenom);
-        fprintf(fptr, "Ville: %s\n", c1.ville);
-        fprintf(fptr, "Telephone: %s\n", c1.telephone);
-        fprintf(fptr, "Solde: %d\n", c1.solde);
-        fclose(fptr);
+    
     } else {
         printf("Erreur lors de l'ouverture du fichier\n");
     }
