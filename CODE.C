@@ -1,8 +1,22 @@
-@ -1,139 +0,0 @@
-// creation des onctions de gestion de compte bancaire
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+// Definir the struct date
+struct date {
+    int jour;
+    int mois;
+    int annee;
+};
+
+// Define the struct client
+struct client {
+    int codecl;
+    char prenom;
+    char nom;
+    char tel;
+    char ville;
+};
 
 // Define the struct compte
 struct compte {
@@ -38,71 +52,104 @@ int accueil() {
     }
     return choice;
 }
-
-// Function to add an account
-struct compte ajout_compte(int numero_compte, int solde, char* nom, char* prenom, char* ville, char* telephone) {
-    struct compte c1;
-    struct compte t[1000];
-    strcpy(c1.nom, nom);
-    strcpy(c1.prenom, prenom);
-    strcpy(c1.ville, ville);
-    strcpy(c1.telephone, telephone);
-    c1.numero_compte = numero_compte;
-    c1.solde = solde;
-        printf("Le compte %d a ete ajoute\n", c1.numero_compte);
-        printf("voici les informations du compte\n");
-        printf("Nom: %s\n", c1.nom);
-        printf("Prenom: %s\n", c1.prenom);
-        printf("Ville: %s\n", c1.ville);
-        printf("Telephone: %s\n", c1.telephone);
-        printf("Solde: %d\n", c1.solde);
-
-        
-    return c1;
-}
-
-// Function to take inputs
-void prendre_inf() {
+void prendre_inf(){
+    int numero_compte;
     char nom[5];
     char prenom[5];
     char ville[5];
     char telephone[5];
     int solde;
+    int codecl;
+    struct date date;
+    printf("Entrer le jour\n");
+    scanf("%d", &date.jour);
+    while (date.jour < 1 || date.jour > 31) {
+        printf("Veuillez entrer un jour valide\n");
+        scanf("%d", &date.jour);
+    }
+
+    printf("Entrer le mois\n");
+    scanf("%d", &date.mois);
+    while (date.mois < 1 || date.mois > 12) {
+        printf("Veuillez entrer un mois valide\n");
+        scanf("%d", &date.mois);
+    }
+
+    printf("Entrer l'année\n");
+    scanf("%d", &numero_compte);
+    while (date.annee < 2024 || date.annee > 2025) {
+        printf("Veuillez entrer une année valide\n");
+        scanf("%d", &date.annee);
+    }
+
+    printf("entrer le numero de compte");
+    scanf("%s", &numero_compte);
+    while(numero_compte <=0){
+        printf("entrer un numero valide");
+        scanf("%d\n", &numero_compte);
+    }
 
     printf("Entrer le nom du client\n");
-    scanf("%s\n", nom);
+    scanf("%s", &nom);
     while (strlen(nom) > 5) {
         printf("veuillez entrer un nom valide\n");
-        scanf("%s\n", nom);
+        scanf("%s\n", &nom);
     }
+
     printf("Entrer le prenom du client\n");
-    scanf("%s\n", prenom);
+    scanf("%s", &prenom);
     while (strlen(prenom) > 5) {
         printf("veuillez entrer un prenom valide\n");
-        scanf("%s\n", prenom);
+        scanf("%s\n", &prenom);
     }
-  
+    
     printf("Entrer la ville du client\n");
-    scanf("%s\n", ville);
+    scanf("%s", &ville);
     while (strlen(ville) > 5) {
         printf("veuillez entrer une ville valide\n");
-        scanf("%s\n", ville);
+        scanf("%s\n", &ville);
     }
-    printf("Entrer le numero de telephone du client\n");
-    do {
-        scanf("%s\n", telephone);
-        printf("veuillez entrer un numero de telephone valide\n");
-    } while (strlen(telephone) > 5);
 
-    printf("Entrer le solde du client\n");
-    do {
+    printf("Entrer le numero de telephone du client\n");
+    scanf("%d", &telephone);
+    while(strlen(telephone)>5){
+        printf("entrer une numero valide");
+        scanf("%s\n", &telephone);
+    }
+
+    printf("entrer votre solde");
+    scanf("%d\n",solde);
+    while(solde <= 0){
+        printf("entrer une solde valide");
         scanf("%d\n", &solde);
-        printf("veuillez entrer un solde valide\n");
-    } while (solde <= 0);
-    ajout_compte(1, solde, nom, prenom, ville, telephone);
+    }
+    printf("Entrer le code client\n");
+    scanf("%d", &codecl);
+    while (codecl <= 0){
+        printf("mauvais saisie");
+        scanf("%s\n", &codecl);
+    }
+    ajout_compte(numero_compte,date,solde,codecl);
+    ajout_client(codecl,prenom,nom,telephone,ville);
 }
 
+void ajout_compte(int numero_compte, struct date date, int solde, int codecl){
+    struct compte *t = malloc(sizeof(struct compte));
+    t->numero_compte = numero_compte;
+    t->date = date;
+    t->solde = solde;
+    t->codecl = codecl;
+}
 
+void ajout_client(int codecl, char prenom[5], char nom[5], char tel[5], char ville[5] ){
+    struct client * m[1];
+    m[1]= malloc(50 * sizeof(struct client));
+    m[0]->codecl = codecl;
+    strcpy(m[0]->prenom, prenom);
+    strcpy(m[0]->nom, nom);
+    strcpy(m[0]->tel, tel);
+    strcpy(m[0]->ville, ville);
+}
 
 int main() {
     
