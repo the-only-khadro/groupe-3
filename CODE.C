@@ -12,16 +12,18 @@ struct date {
 // Define the struct client
 struct client {
     int codecl;
-    char prenom;
-    char nom;
-    char tel;
-    char ville;
+    char prenom[25];
+    char nom[25];
+    char tel[15];
+    char ville[50];
 };
 
 // Define the struct compte
 struct compte {
     int numero_compte;
+    struct date date;
     int solde;
+    int codecl;
     char nom[25];
     char prenom[25];
     char ville[50];
@@ -52,6 +54,26 @@ int accueil() {
     }
     return choice;
 }
+
+
+void ajout_compte(int numero_compte, struct date date, int solde, int codecl){
+    struct compte *t = (struct compte *)malloc(sizeof(struct compte));
+    t->numero_compte = numero_compte;
+    t->date = date;
+    t->solde = solde;
+    t->codecl = codecl;
+}
+
+void ajout_client(int codecl, char prenom[5], char nom[5], char tel[5], char ville[5] ){
+    struct client * m[1];
+    m[1]= (struct client *)malloc(50 * sizeof(struct client));
+    m[0]->codecl = codecl;
+    strcpy(m[0]->prenom, prenom);
+    strcpy(m[0]->nom, nom);
+    strcpy(m[0]->tel, tel);
+    strcpy(m[0]->ville, ville);
+}
+
 void prendre_inf(){
     int numero_compte;
     char nom[5];
@@ -133,23 +155,6 @@ void prendre_inf(){
     ajout_client(codecl,prenom,nom,telephone,ville);
 }
 
-void ajout_compte(int numero_compte, struct date date, int solde, int codecl){
-    struct compte *t = malloc(sizeof(struct compte));
-    t->numero_compte = numero_compte;
-    t->date = date;
-    t->solde = solde;
-    t->codecl = codecl;
-}
-
-void ajout_client(int codecl, char prenom[5], char nom[5], char tel[5], char ville[5] ){
-    struct client * m[1];
-    m[1]= malloc(50 * sizeof(struct client));
-    m[0]->codecl = codecl;
-    strcpy(m[0]->prenom, prenom);
-    strcpy(m[0]->nom, nom);
-    strcpy(m[0]->tel, tel);
-    strcpy(m[0]->ville, ville);
-}
 
 int main() {
     
