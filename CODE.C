@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 // Definir the struct date
 struct date {
     int jour;
@@ -38,8 +39,7 @@ int accueil() {
     printf("entrer 2 pour supprimer un compte\n");
     printf("entrer 3 pour faire des operations dans un compte\n");
     scanf("%d\n", &choice);
-    switch (choice)
-    {
+    switch (choice){
         case 1:
             printf("vous avez choisi d'ajouter un compte\n");
             break;
@@ -57,7 +57,7 @@ int accueil() {
 
 
 void ajout_compte(int numero_compte, struct date date, int solde, int codecl){
-    struct compte *t = (struct compte *)malloc(sizeof(struct compte));
+    struct compte* t = malloc(sizeof(t));
     t->numero_compte = numero_compte;
     t->date = date;
     t->solde = solde;
@@ -70,12 +70,13 @@ void ajout_compte(int numero_compte, struct date date, int solde, int codecl){
         fprintf(fptr, "solde: %s\n", t->solde);
         fprintf(fptr, "codecl: %s\n", t->codecl);
         fclose(fptr);
+    }
 
 }
 
-void ajout_client(int codecl, char prenom[5], char nom[5], char tel[5], char ville[5] ){
+void ajout_client(int codecl, char prenom[5], char nom[5], char tel[5], char ville[5]){
     struct client * m[1];
-    m[1]= (struct client *)malloc(50 * sizeof(struct client));
+    m[1]= malloc(50 * sizeof(struct client));
     
     m[0]->codecl = codecl;
     strcpy(m[0]->prenom, prenom);
@@ -165,30 +166,107 @@ void prendre_inf(){
     ajout_client(codecl,prenom,nom,telephone,ville);
 }
 
+// fonction envoie d'argent
+    void envoie_argent(){
+    int num_compte;
+    int num_dest; 
+    int montant;
+    char hist [1000];
+    printf("entrer votre numero de compte\n");
+    scanf("%d\n", &num_compte);
+    printf("entrer le numero de compte du destinataire");
+    scanf("%d\n", &num_dest);
+    printf("entrer le montant que vous voulez envoyer");
+    scanf("%d\n", &montant);
+    FILE * fptr;
+    fptr = fopen(comptes.txt, "r")
+    while (i != EOF)
+    {
+        fgets(hist,1000,fptr);
+    }
+    int i,j;
+    for (size_t i = 0; i < count ; i++)
+    {
+        while (t[i]->numero_compte = num_compte )
+        {
+            while ( t[j]->numero-compte = num_dest)
+            {
+                t[i]->solde -= montant;
+                t[j]->solde += montant
+            }    
+        }
+        
+    }
+    printf("votre envoie a bien ete effectue");
+    FILE * fptr;
+    fptr= fopen(historique.txt,"w")
+    fputs("le compte numero %d a envoyer %d  au compte numero %d",numero_compte,montant,numero_dest);
+}
 
-int main() {
+//fonction retrait d'argent
+// fonction envoie
+    void retrait_argent(){
+    int num_compte;
+    int montant;
+    char hist [1000];
+    printf("entrer votre numero de compte\n");
+    scanf("%d\n", &num_compte);
+    printf("entrer le montant que vous voulez envoyer");
+    scanf("%d\n", &montant);
+    FILE * fptr;
+    fptr = fopen(comptes.txt, "r")
+    while (i != EOF)
+    {
+        fgets(hist,1000,fptr);
+    }
+    int i;
+    for (size_t i = 0; i < count ; i++)
+    {
+        while (t[i]->numero_compte = num_compte && t[i]->solde >= montant )
+        {
+            t[i]->solde -= montant; 
+        }
+        
+    }
+    printf("votre retrait a bien ete effectue");
+    FILE * fptr;
+    fptr= fopen(historique.txt,"w")
+    fputs("le compte numero %d a retirer %d fcfa",numero_compte,montant);
+}
+
+void suppr_compte(){
+    int num_compte;
+    prpintf("entrer le numero de votre compte");
+    scanf("%d\n",&num_compte);
+    for (size_t i = 0; i < count; i++)
+    {
+        if(t[i]->numero_compte = num_compte){
+        t[i]= 0;
+        }
+    }
+    printf("le compte %d a bien ete supprimer",num_compte);
+}
+
+int main(){
     
     printf("Bienvenue dans notre application de gestion de compte\n");
     accueil();
     if(accueil() == 1) {
         prendre_inf();
-    }
-    struct compte c1;
-    
+    } else if (accueil() == 2){
+        suppr_compte();
     } else {
-        printf("Erreur lors de l'ouverture du fichier\n");
-    }
-      
-    char mychar[100];   
-    fptr = fopen("comptes.txt", "r");
-    if(fptr != NULL) {
-        while(fgets(mychar, 100, fptr) != NULL) {
-            printf("this is%s", mychar);
-        }
-        fclose(fptr);
-    } else {
-        printf("Erreur lors de l'ouverture du fichier\n");
-    }
+        printf("entrer 1 si vous voulez envoyer de l'argent et 2 si vous souhaiter en retirer");
+        int reponse;
+        scanf("%d\n",&reponse);
+        if (reponse == 1){
+                envoie_argent();
+        } else{
+            retrait argent();
+            }
+    }    
     return 0;
 }
+
+
 
